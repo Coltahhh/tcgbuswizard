@@ -18,7 +18,12 @@ mongoose.connect(process.env.MONGODB_URI)
     .catch(err => console.error(err));
 
 // Routes
-app.use('/api/tournaments', require('./routes/tournaments'));
+app.get('/', (req, res) => {
+    res.send('TCGBusWizard Backend is running!');
+
+app.use('/api/tournaments', tournamentRoutes);
+app.use('/api/rankings', rankingRoutes);
+app.use('/api/auth', authRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
