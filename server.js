@@ -20,10 +20,10 @@ mongoose.connect(process.env.MONGODB_URI)
 // Routes
 app.get('/', (req, res) => {
     res.send('TCGBusWizard Backend is running!');
-
-app.use('/api/tournaments', tournamentRoutes);
-app.use('/api/rankings', rankingRoutes);
-app.use('/api/auth', authRoutes);
+});
+app.use('/api/tournaments', require('./routes/tournaments'));
+app.use('/api/rankings', require('./routes/rankings'));
+app.use('/api/auth', require('./routes/auth'));
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
