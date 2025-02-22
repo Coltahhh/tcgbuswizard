@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react';
-import { getRankings } from '../api';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Ranking = () => {
     const [rankings, setRankings] = useState([]);
 
     useEffect(() => {
-        getRankings()
-            .then(response => setRankings(response.data))
-            .catch(error => console.error(error));
+        const fetchRankings = async () => {
+            try {
+                const response = await axios.get('/api/rankings');
+                setRankings(response.data);
+            } catch (error) {
+                console.error('Error fetching rankings:', error);
+            }
+        };
+        fetchRankings();
     }, []);
 
     return (
@@ -23,12 +30,20 @@ const Ranking = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {rankings.map((player, index) => (
-                    <tr key={player._id}>
+                {rankings.map((ranking, index) => (
+                    <tr key={ranking._id}>
                         <td>{index + 1}</td>
-                        <td>{player.name}</td>
-                        <td>{player.points}</td>
-                        <td>{player.wins}</td>
+                        <td>
+                            {ranking.user ? (
+                                <Link to={`/user/${ranking.user._id}`} className="text-warning text-decoration-none">
+                                    {ranking.user.username}
+                                </Link>
+                            ) : (
+                                'Unknown Player'
+                            )}
+                        </td>
+                        <td>{ranking.points}</td>
+                        <td>{ranking.wins}</td>
                     </tr>
                 ))}
                 </tbody>
