@@ -6,7 +6,13 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
-    tournaments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tournament' }]
+    tournaments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tournament' }],
+    bio: { type: String, default: '' },
+    avatar: { type: String, default: 'https://i.ibb.co/4YfL60K/default-avatar.png' },
+    joinedTournaments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tournament' }],
+    social: {
+        discord: String
+    }
 });
 
 // Hash password before saving

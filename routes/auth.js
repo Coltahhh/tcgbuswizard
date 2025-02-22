@@ -31,5 +31,14 @@ router.post('/login', async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
-
+router.get('/verify', async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.userId).select('-password');
+        res.json({ user });
+    } catch (error) {
+        res.status(401).json({ error: 'Invalid token' });
+    }
+});
 module.exports = router;
