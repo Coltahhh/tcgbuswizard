@@ -17,6 +17,10 @@ function App() {
                 <Route path="/prizing" element={<Prizing />} />
                 <Route path="/user/:userId" element={<Profile />} />
                 <Route path="/tournaments/:tournamentId" element={<TournamentBracket />} />
+                <Route
+                    path="/verify-required"
+                    element={<VerificationRequired />}
+                />
             </Routes>
         </Router>
     );

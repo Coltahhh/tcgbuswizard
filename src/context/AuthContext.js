@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) { // Destructure children properly

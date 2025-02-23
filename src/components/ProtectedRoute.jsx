@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { useAuth } from '../context/AuthContext';
 
 const ProtectedRoute = ({ children }) => {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
 
-    if (!user) {
-        return <Navigate to="/login" replace />;
-    }
+    if (loading) return <LoadingSpinner />;
+    if (!user) return <Navigate to="/login" replace />;
+    if (!user.isVerified) return <Navigate to="/verify-required" replace />;
 
     return children;
 };
